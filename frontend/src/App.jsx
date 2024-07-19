@@ -1,13 +1,14 @@
+import SignUp from "./components/SignUp";
 
 
 function App() {
 
   return (
     <div>
-      <h1>PostSnap</h1>
+      <SignUp/>
     </div>
      
   )
 }
 
-export default App
+export default App;
