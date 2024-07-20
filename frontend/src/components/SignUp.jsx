@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
 
 const SignUp = () => {
     const [name, setName] = useState("");
@@ -13,48 +12,73 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if(password === confirmPassword){
+            if (password === confirmPassword) {
                 const result = await axios.post('http://localhost:3001/register', { name, email, password });
                 console.log(result.data);
-                navigate('/login')
+                navigate('/login');
+            } else {
+                console.log('Password does not match');
             }
-            else{
-                console.log('Password does not match')
-            }
-            
         } catch (error) {
             console.error(error);
         }
     }
 
     return (
-        <div className='bg-gray-300 m-10 p-10 max-w-md mx-auto mt-10'>
-            <h1 className='mb-5'>Sign Up</h1>
-            <div>
-                <form onSubmit={handleSubmit}>
+        <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
+            <div className='bg-white shadow-lg rounded-lg p-8 max-w-md w-full'>
+                <h1 className='text-2xl font-bold mb-6 text-center'>Sign Up</h1>
+                <form onSubmit={handleSubmit} className='space-y-4'>
                     <div>
-                        <label htmlFor="name">Name</label>
-                        <input type="text" name='name' placeholder='Enter the name' className='m-1' autoComplete='off' onChange={(e) => setName(e.target.value)} />
+                        <label htmlFor="name" className='block text-sm font-medium text-gray-700'>Name</label>
+                        <input
+                            type="text"
+                            name='name'
+                            placeholder='Enter your name'
+                            className='mt-1 p-2 w-full border border-gray-300 rounded'
+                            autoComplete='off'
+                            onChange={(e) => setName(e.target.value)}
+                        />
                     </div>
                     <div>
-                        <label htmlFor="email">Email</label>
-                        <input type="email" name='email' placeholder='Enter the Email' className='m-1' autoComplete='off' onChange={(e) => setEmail(e.target.value)} />
+                        <label htmlFor="email" className='block text-sm font-medium text-gray-700'>Email</label>
+                        <input
+                            type="email"
+                            name='email'
+                            placeholder='Enter your email'
+                            className='mt-1 p-2 w-full border border-gray-300 rounded'
+                            autoComplete='off'
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                     </div>
                     <div>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" name='password' placeholder='Enter the password' className='m-1' autoComplete='off' onChange={(e) => setPassword(e.target.value)} />
+                        <label htmlFor="password" className='block text-sm font-medium text-gray-700'>Password</label>
+                        <input
+                            type="password"
+                            name='password'
+                            placeholder='Enter your password'
+                            className='mt-1 p-2 w-full border border-gray-300 rounded'
+                            autoComplete='off'
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                     </div>
                     <div>
-                        <label htmlFor="ConfirmPassword">Password</label>
-                        <input type="password" name='confirmPassword' placeholder='Confirm the password' className='m-1' autoComplete='off' onChange={(e) => setConfirmPassword(e.target.value)} />
+                        <label htmlFor="confirmPassword" className='block text-sm font-medium text-gray-700'>Confirm Password</label>
+                        <input
+                            type="password"
+                            name='confirmPassword'
+                            placeholder='Confirm your password'
+                            className='mt-1 p-2 w-full border border-gray-300 rounded'
+                            autoComplete='off'
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
                     </div>
                     <div>
-                        <button type='submit' className='bg-green-500'>Register</button>
+                        <button type='submit' className='w-full py-2 bg-green-500 text-white font-bold rounded hover:bg-green-700'>Register</button>
                     </div>
                 </form>
-                <div className='flex flex-wrap'>
-                    <p>Already have an account?</p>
-                    <Link to="/login" className='bg-blue-500 rounded'>Log In</Link>
+                <div className='mt-4 text-center'>
+                    <p className='text-sm text-gray-600'>Already have an account? <Link to="/login" className='text-blue-500 hover:text-blue-700'>Log In</Link></p>
                 </div>
             </div>
         </div>

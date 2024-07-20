@@ -26,30 +26,42 @@ const LogIn = () => {
     }
 
   return (
-    <div className='bg-gray-300 m-10 p-10 max-w-md mx-auto mt-10'>
-        <h1 className='mb-5'>Log In</h1>
-        <div>
-            <form onSubmit={handleSubmit}>
+    <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
+        <div className='bg-white p-8 max-w-md w-full shadow-lg rounded'>
+        <h1 className='mb-6 text-2xl font-bold text-center'>Log In</h1>
+            <form onSubmit={handleSubmit} className='space-y-4'>
                 
                 <div>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" name='email' placeholder='Enter the Email' onChange={(e)=>{setEmail(e.target.value)}} />
+                    <label htmlFor="email" className='text-sm font-medium text-gray-700 block'>Email</label>
+                    <input 
+                    type="email" 
+                    name='email' 
+                    placeholder='Enter the Email' 
+                    onChange={(e)=>{setEmail(e.target.value)}} 
+                    className='mt-1 p-2 w-full border border-gray-300 rounded'
+                    />
                 </div>
 
                 <div>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name='password' placeholder='Enter the password' onChange={(e)=>{setPassword(e.target.value)}}  />
+                    <label htmlFor="password" className='text-sm font-medium text-gray-700 block'>Password</label>
+                    <input 
+                    type="password" 
+                    name='password' 
+                    placeholder='Enter the password' 
+                    onChange={(e)=>{setPassword(e.target.value)}} 
+                    className='mt-1 p-2 w-full border border-gray-300 rounded'
+                    />
                 </div>
 
                 <div>
-                    <button className='bg-green-500'>Log In</button>
+                    <button type='submit' className='bg-green-500 w-full py-2 text-white font-bold rounded hover:bg-green-700'>Log In</button>
                 </div>
 
             </form>
 
-            <div className='flex'> 
+            <div className='mt-4 text-center flex'> 
                 <p>Create an account?</p>
-                <Link to="/register" className='bg-blue-500 rounded'>Register</Link>
+                <Link to="/register" className='text-blue-500 hover:text-blue-700'>Register</Link>
             </div>
         </div>
     </div>
