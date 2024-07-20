@@ -7,9 +7,11 @@ const LogIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const [error,setError] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
         try {
                 const result = await axios.post('http://localhost:3001/login', { email, password });
                 console.log(result.data);
@@ -18,10 +20,12 @@ const LogIn = () => {
                 }
                 if(result.data === 'Incorrect password' || result.data === 'User not found'){
                     console.log('Invalid credentials');
+                    setError('Invalid credentials.')
                 }
             
         } catch (error) {
             console.error(error);
+            setError('Fail to login, Please try again.')
         }
     }
 
@@ -29,6 +33,11 @@ const LogIn = () => {
     <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
         <div className='bg-white p-8 max-w-md w-full shadow-lg rounded'>
         <h1 className='mb-6 text-2xl font-bold text-center'>Log In</h1>
+        {(error)&&(
+                    <div className='bg-red-100 text-red-700 p-4 mb-4 rounded'>
+                        {error}
+                    </div>
+                )}
             <form onSubmit={handleSubmit} className='space-y-4'>
                 
                 <div>
@@ -37,6 +46,7 @@ const LogIn = () => {
                     type="email" 
                     name='email' 
                     placeholder='Enter the Email' 
+                    required
                     onChange={(e)=>{setEmail(e.target.value)}} 
                     className='mt-1 p-2 w-full border border-gray-300 rounded'
                     />
@@ -48,6 +58,7 @@ const LogIn = () => {
                     type="password" 
                     name='password' 
                     placeholder='Enter the password' 
+                    required
                     onChange={(e)=>{setPassword(e.target.value)}} 
                     className='mt-1 p-2 w-full border border-gray-300 rounded'
                     />

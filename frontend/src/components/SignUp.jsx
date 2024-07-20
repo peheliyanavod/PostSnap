@@ -7,10 +7,12 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [error,setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
         try {
             if (password === confirmPassword) {
                 const result = await axios.post('http://localhost:3001/register', { name, email, password });
@@ -18,9 +20,11 @@ const SignUp = () => {
                 navigate('/login');
             } else {
                 console.log('Password does not match');
+                setError('Password does not match.');
             }
         } catch (error) {
             console.error(error);
+            setError('Fail to register. Please try again.');
         }
     }
 
@@ -28,6 +32,12 @@ const SignUp = () => {
         <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
             <div className='bg-white shadow-lg rounded-lg p-8 max-w-md w-full'>
                 <h1 className='text-2xl font-bold mb-6 text-center'>Sign Up</h1>
+                {(error)&&(
+                    <div className='bg-red-100 text-red-700 p-4 mb-4 rounded'>
+                        {error}
+                    </div>
+                )}
+
                 <form onSubmit={handleSubmit} className='space-y-4'>
                     <div>
                         <label htmlFor="name" className='block text-sm font-medium text-gray-700'>Name</label>
@@ -37,6 +47,7 @@ const SignUp = () => {
                             placeholder='Enter your name'
                             className='mt-1 p-2 w-full border border-gray-300 rounded'
                             autoComplete='off'
+                            required
                             onChange={(e) => setName(e.target.value)}
                         />
                     </div>
@@ -48,6 +59,7 @@ const SignUp = () => {
                             placeholder='Enter your email'
                             className='mt-1 p-2 w-full border border-gray-300 rounded'
                             autoComplete='off'
+                            required
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
@@ -59,6 +71,7 @@ const SignUp = () => {
                             placeholder='Enter your password'
                             className='mt-1 p-2 w-full border border-gray-300 rounded'
                             autoComplete='off'
+                            required
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
@@ -70,6 +83,7 @@ const SignUp = () => {
                             placeholder='Confirm your password'
                             className='mt-1 p-2 w-full border border-gray-300 rounded'
                             autoComplete='off'
+                            required
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
