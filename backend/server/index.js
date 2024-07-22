@@ -10,7 +10,13 @@ app.use(cors());
 
 const port = 3001;
 
-mongoose.connect("mongodb://localhost:27017/PostSnap");
+mongoose.connect("mongodb://localhost:27017/PostSnap")
+.then(() => {
+    console.log('MongoDB is running');
+})
+.catch((error) => {
+    console.log(error);
+})
 
 app.post('/register', (req, res) => {
     const { name, email, password } = req.body;

@@ -1,7 +1,10 @@
+import AddPost from "../components/AddPost"
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <AddPost/>
+    </div>
   )
 }
 
