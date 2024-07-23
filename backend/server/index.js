@@ -45,17 +45,17 @@ app.post('/login',(req,res) => {
     })
 })
 
-app.post('/add-post',async (req,res) => {
-    const {imageURL} = req.body;
-    try{
-        await PostModel.create({imageURL})
-        res.send({status:"ok"});
+app.post('/add-post', async (req, res) => {
+    const { imageURL, caption } = req.body;
+
+    try {
+        const post = new PostModel({ imageURL, caption });
+        await post.save();
+        res.json({ status: "ok", data: post });
+    } catch (error) {
+        res.json({ status: "error", error: error.message });
     }
-    catch(error){
-        res.send({status: error});
-    }
-    
-})
+});
 
 app.get('/get-posts',async (req,res) => {
     try{
