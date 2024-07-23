@@ -1,0 +1,2 @@
+validations in login and signup pages
+jwt authentication

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const UserModel = require('./models/user');
+const PostModel = require('./models/posts')
 
 const app = express();
 app.use(express.json());
@@ -35,13 +36,35 @@ app.post('/login',(req,res) => {
                 res.json("Successfull");
             }
             else{
-                res.json("Incorrect password")
+                res.json("Incorrect password");
             }
         }
         else{
-            res.json("User not found")
+            res.json("User not found");
         }
     })
+})
+
+app.post('/add-post',async (req,res) => {
+    const {imageURL} = req.body;
+    try{
+        await PostModel.create({imageURL})
+        res.send({status:"ok"});
+    }
+    catch(error){
+        res.send({status: error});
+    }
+    
+})
+
+app.get('/get-posts',async (req,res) => {
+    try{
+        const posts = await PostModel.find({});
+        res.json({status: "ok",data: posts});
+    }
+    catch(error){
+        res.send({status: error});
+    }
 })
 
 app.listen(port, () => {
