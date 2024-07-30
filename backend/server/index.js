@@ -27,22 +27,32 @@ app.post('/register', (req, res) => {
         .catch(err => res.status(500).json({ error: err.message }));
 });
 
-app.post('/login',(req,res) => {
-    const {email,password} =req.body;
-    UserModel.findOne({email: email})
-    .then(user => {
-        if(user){
-            if(user.password === password){
-                res.json("Successfull");
-            }
-            else{
-                res.json("Incorrect password");
-            }
-        }
-        else{
-            res.json("User not found");
-        }
-    })
+// app.post('/login',(req,res) => {
+//     const {email,password} =req.body;
+//     UserModel.findOne({email: email})
+//     .then(user => {
+//         if(user){
+//             if(user.password === password){
+//                 res.json("Successfull");
+//             }
+//             else{
+//                 res.json("Incorrect password");
+//             }
+//         }
+//         else{
+//             res.json("User not found");
+//         }
+//     })
+// })
+
+app.post('/login',async (req,res) => {
+    try{
+        const user = await UserModel.findByCredentials(req.body.email,req.body.password);
+        res.send(user);
+    }
+    catch(error){
+        res.status(401).send(error);
+    }
 })
 
 app.post('/add-post', async (req, res) => {
